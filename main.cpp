@@ -9,21 +9,22 @@ const std::string OUTPUT_ODD_FILE = "output_odd.txt";
 const std::string OUTPUT_EVEN_FILE = "output_even.txt";
 
 void write_line_func(const std::string& line_content, std::ofstream& output_stream) {
-    std::cout << "Thread (ID: " << std::this_thread::get_id << ") is writing line to file";
+    std::cout << "Thread (ID: " << std::this_thread::get_id() << ") is writing line to file";
     output_stream << line_content;
+    output_stream.flush();
 }
 
 void create_test_file() {
     std::ofstream test_file(INPUT_FILE);
     if (test_file.is_open()) {
-        test_file << "Line 1: odd thread";
-        test_file << "Line 2: even thread";
-        test_file << "Line 3: odd thread";
-        test_file << "Line 4: even thread";
-        test_file << "Line 5: odd thread";
-        test_file << "Line 6: even thread";
-        test_file << "Line 7: odd thread";
-        test_file << "Line 8: even thread";
+        test_file << "Line 1: odd thread\n";
+        test_file << "Line 2: even thread\n";
+        test_file << "Line 3: odd thread\n";
+        test_file << "Line 4: even thread\n";
+        test_file << "Line 5: odd thread\n";
+        test_file << "Line 6: even thread\n";
+        test_file << "Line 7: odd thread\n";
+        test_file << "Line 8: even thread\n";
         std::cout << "Test file '" << INPUT_FILE << "' created" << std::endl;
         test_file.close();
     }
