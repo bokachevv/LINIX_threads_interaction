@@ -33,7 +33,7 @@ void worker_thread_func(TaskQueue& queue, std::ofstream& output_stream) {
             queue.q.pop();
         }
 
-        std::cout << "  Поток (ID: " << std::this_thread::get_id() << "): Записываю строку в файл" << std::endl;
+        std::cout << "  Thread (ID: " << std::this_thread::get_id() << "): Writing line to file" << std::endl;
         output_stream << line_to_write;
         output_stream.flush();
     }
