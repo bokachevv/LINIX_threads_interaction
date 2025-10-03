@@ -36,8 +36,8 @@ void create_test_file() {
 int main() {
     create_test_file();
     std::ifstream input_fp(INPUT_FILE);
-    std::ofstream output_odd_fp(OUTPUT_ODD_FILE);
-    std::ofstream output_even_fp(OUTPUT_EVEN_FILE);
+    std::ofstream output_odd_fp(OUTPUT_ODD_FILE, std::ios::trunc);
+    std::ofstream output_even_fp(OUTPUT_EVEN_FILE, std::ios::trunc);
 
     if (!input_fp.is_open() || !output_odd_fp.is_open() || !output_even_fp.is_open()) {
         std::cerr << "Error: could not open one or more files" << std::endl;
@@ -46,28 +46,43 @@ int main() {
 
     std::cout << "Files are successfully opened" << std::endl;
 
-    std::string line;
+    std::string odd_line, even_line;
     int line_count=0;
-    while (std::getline(input_fp, line)) {
+    while (true) {
+
+        if (!std::getline(input_fp, odd_line)) {
+            break;
+        }
         line_count++;
-        line += "\n";
+        odd_line += "\n";
+        std::cout << "\nLine " << line_count << " processing... Odd" << std::endl;
 
-        std::cout << "Line " << line_count << "processing... ";
-        std::thread worker_thread;
-
-        if (line_count % 2 != 0) {
-            std::cout << "Odd" << std::endl;
-            worker_thread = std::thread(write_line_func, std::ref(line), std::ref(output_odd_fp));
-        }
-        else {
-            std::cout << "Even" << std::endl;
-            worker_thread = std::thread(write_line_func, std::ref(line), std::ref(output_even_fp));
+        if (!std::getline(input_fp, even_line)) {
+            std::thread odd_thread(write_line_func, std::ref(odd_line), std::ref(output_odd_fp));
+            if (odd_thread.joinable()) {
+                odd_thread.join();
+                std::cout << "Thread for line " << line_count << " is done and joined." << std::endl;
+            }
+            break;
         }
 
-        if (worker_thread.joinable()) {
-            worker_thread.join();
-            std::cout << "Thread is done and joined" << std::endl;
+        line_count++;
+        even_line += "\n";
+        std::cout << "Line " << line_count << " processing... Even" << std::endl;
+
+        std::thread odd_thread(write_line_func, std::ref(odd_line), std::ref(output_odd_fp));
+        std::thread even_thread(write_line_func, std::ref(even_line), std::ref(output_even_fp));
+
+        if (odd_thread.joinable()) {
+            odd_thread.join();
+            std::cout << "Thread for odd line is done and joined." << std::endl;
         }
+
+        if (even_thread.joinable()) {
+            even_thread.join();
+            std::cout << "Thread for even line is done and joined." << std::endl;
+        }
+
     }
 
     input_fp.close();
