@@ -9,7 +9,7 @@ const std::string OUTPUT_ODD_FILE = "output_odd.txt";
 const std::string OUTPUT_EVEN_FILE = "output_even.txt";
 
 void write_line_func(const std::string& line_content, std::ofstream& output_stream) {
-    std::cout << "Thread (ID: " << std::this_thread::get_id() << ") is writing line to file";
+    std::cout << std::endl << "Thread (ID: " << std::this_thread::get_id() << ") is writing line to file";
     output_stream << line_content;
     output_stream.flush();
 }
@@ -75,7 +75,7 @@ int main() {
 
         if (odd_thread.joinable()) {
             odd_thread.join();
-            std::cout << "Thread for odd line is done and joined." << std::endl;
+            std::cout << std::endl << "Thread for odd line is done and joined." << std::endl;
         }
 
         if (even_thread.joinable()) {
