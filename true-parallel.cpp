@@ -33,39 +33,24 @@ void worker_thread_func(TaskQueue& queue, std::ofstream& output_stream) {
             queue.q.pop();
         }
 
-        std::cout << "  Thread (ID: " << std::this_thread::get_id() << "): Writing line to file" << std::endl;
+        std::cout << "  Поток (ID: " << std::this_thread::get_id() << "): Записываю строку в файл" << std::endl;
         output_stream << line_to_write;
         output_stream.flush();
     }
 }
 
-void create_test_file() {
-    std::ofstream test_file(INPUT_FILE);
-    if (test_file.is_open()) {
-        test_file << "Line 1: odd thread\n";
-        test_file << "Line 2: even thread\n";
-        test_file << "Line 3: odd thread\n";
-        test_file << "Line 4: even thread\n";
-        test_file << "Line 5: odd thread\n";
-        test_file << "Line 6: even thread\n";
-        test_file << "Line 7: odd thread\n";
-        test_file << "Line 8: even thread\n";
-        std::cout << "Test file '" << INPUT_FILE << "' created" << std::endl;
-        test_file.close();
-    }
-    else {
-        std::cerr << "Error: could not open or create '" << INPUT_FILE << "' file" << std::endl;
-    }
-}
 
 int main() {
-    create_test_file();
     std::ifstream input_fp(INPUT_FILE);
     std::ofstream output_odd_fp(OUTPUT_ODD_FILE, std::ios::trunc);
     std::ofstream output_even_fp(OUTPUT_EVEN_FILE, std::ios::trunc);
 
-    if (!input_fp.is_open() || !output_odd_fp.is_open() || !output_even_fp.is_open()) {
-        std::cerr << "Error: could not open one or more files" << std::endl;
+    if (!input_fp.is_open()) {
+        std::cerr << "Error: could not open input file '" << INPUT_FILE << "'. Please ensure the file exists." << std::endl;
+        return 1;
+    }
+    if (!output_odd_fp.is_open() || !output_even_fp.is_open()) {
+        std::cerr << "Error: could not open one or more output files." << std::endl;
         return 1;
     }
 

@@ -55,8 +55,8 @@ build CMakeFiles/lab4.dir/main.cpp.o: CXX_COMPILER__lab4_unscanned_Debug /Users/
   OBJECT_DIR = CMakeFiles/lab4.dir
   OBJECT_FILE_DIR = CMakeFiles/lab4.dir
 
-build CMakeFiles/lab4.dir/parallel.cpp.o: CXX_COMPILER__lab4_unscanned_Debug /Users/bokachev/CLionProjects/OPPLinux/lab4/parallel.cpp || cmake_object_order_depends_target_lab4
-  DEP_FILE = CMakeFiles/lab4.dir/parallel.cpp.o.d
+build CMakeFiles/lab4.dir/true-parallel.cpp.o: CXX_COMPILER__lab4_unscanned_Debug /Users/bokachev/CLionProjects/OPPLinux/lab4/true-parallel.cpp || cmake_object_order_depends_target_lab4
+  DEP_FILE = CMakeFiles/lab4.dir/true-parallel.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.0.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/lab4.dir
   OBJECT_FILE_DIR = CMakeFiles/lab4.dir
@@ -75,7 +75,7 @@ build CMakeFiles/lab4.dir/2-parallel.cpp.o: CXX_COMPILER__lab4_unscanned_Debug /
 #############################################
 # Link the executable lab4
 
-build lab4: CXX_EXECUTABLE_LINKER__lab4_Debug CMakeFiles/lab4.dir/main.cpp.o CMakeFiles/lab4.dir/parallel.cpp.o CMakeFiles/lab4.dir/2-parallel.cpp.o
+build lab4: CXX_EXECUTABLE_LINKER__lab4_Debug CMakeFiles/lab4.dir/main.cpp.o CMakeFiles/lab4.dir/true-parallel.cpp.o CMakeFiles/lab4.dir/2-parallel.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.0.sdk
   OBJECT_DIR = CMakeFiles/lab4.dir
   POST_BUILD = :
